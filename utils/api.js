@@ -13,7 +13,9 @@ export const verifyOTP = async (email, otp) => {
 };
 
 export const loginUser = async (email, password) => {
-    const response = await axios.post(`${API_BASE_URL}/login`, { email, password });
+    const response = await axios.post(`${API_BASE_URL}/login`, { email, password }, {
+        withCredentials: true // 👈 Add this
+    });
     return response.data;
 };
 
@@ -24,10 +26,5 @@ export const forgotPassword = async (email) => {
 
 export const resetPassword = async (token, newPassword, confirmPassword) => {
     const response = await axios.put(`${API_BASE_URL}/reset-password/${token}`, { newPassword, confirmPassword });
-    return response.data;
-};
-
-export const logoutUser = async () => {
-    const response = await axios.post(`${API_BASE_URL}/logout`);
     return response.data;
 };

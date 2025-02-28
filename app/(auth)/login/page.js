@@ -18,7 +18,6 @@ export default function Login() {
         setLoading(true);
         try {
             const response = await loginUser(email, password);
-            setToken(response.token); // Use setToken instead of Cookies.set directly
             toast.success('Logged in successfully!');
             router.push('/dashboard');
         } catch (error) {
