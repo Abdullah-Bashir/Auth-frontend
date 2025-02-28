@@ -1,11 +1,11 @@
+// SetPasswordForm.js
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 
-// Inner component that uses useSearchParams
-function SetPasswordForm() {
+export default function SetPasswordForm() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -20,7 +20,7 @@ function SetPasswordForm() {
             return;
         }
         try {
-            const response = await axios.post("/api/users/set-password", { // Use relative path for production
+            const response = await axios.post("http://localhost:5000/api/users/set-password", {
                 token,
                 newPassword: password,
                 confirmPassword,
@@ -67,14 +67,5 @@ function SetPasswordForm() {
             </form>
             {message && <p className="mt-4 text-green-600">{message}</p>}
         </div>
-    );
-}
-
-// Outer component with Suspense
-export default function SetPassword() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <SetPasswordForm />
-        </Suspense>
     );
 }
